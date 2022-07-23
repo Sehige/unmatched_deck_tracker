@@ -30,6 +30,7 @@ dependencies:
   flutter:
     sdk: flutter
   auto_size_text: ^3.0.0
+  font_awesome_flutter: ^10.1.0
 
 
 
@@ -63,6 +64,10 @@ flutter:
   assets:
    - images/
   #   - images/a_dot_ham.jpeg
+  fonts:
+    - family:  HeroIcons
+      fonts:
+      - asset: fonts/HeroIcons.ttf
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
