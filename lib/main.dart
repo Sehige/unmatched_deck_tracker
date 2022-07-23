@@ -2,6 +2,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'icons.dart';
 
 void main() {
   //debugPaintSizeEnabled = true;
@@ -46,44 +48,20 @@ class _FavouriteState extends State<MyApp> {
                       _list[index].image,
                       fit: BoxFit.fitWidth,
                     ),
-                    ExpansionPanelList(
-                      animationDuration: Duration(milliseconds: 500),
-                      children: [
-                        ExpansionPanel(
-                          headerBuilder: (context, isExpanded) {
-                            return Center(
-                              child: Text(
-                                _list[index].name,
-                                textScaleFactor: 1.5,
-                              ),
-                            );
-                          },
-                          body: Text("Data"),
-                          isExpanded: _list[index].bExpanded,
-                          canTapOnHeader: true,
-                        ),
+                    ExpansionTile(
+                      title: Text(_list[index].name),
+                      trailing: Icon(_list[index].bExpanded
+                          ? _list[index].icon_on
+                          : _list[index].icon_off),
+                      children: const <Widget>[
+                        ListTile(title: Text('This is tile number 2')),
                       ],
-                      dividerColor: Colors.grey,
-                      expansionCallback: (index2, bool isExpanded) {
+                      onExpansionChanged: (value) {
                         setState(() {
-                          index2 = index;
-                          _list[index2].bExpanded = !isExpanded;
+                          _list[index].bExpanded = !_list[index].bExpanded;
                         });
                       },
                     ),
-                    /*TextButton(
-            onPressed: () {
-              nNrOfClicks++;
-              if (nNrOfClicks % 2 == 0) {
-                dAspectRatio = 0.75;
-              } else {
-                dAspectRatio = 1.8;
-              }
-            },
-            child: AutoSizeText(
-              _list[index].name,
-            ),
-          ),*/
                   ],
                 ),
               );
@@ -171,17 +149,22 @@ Widget buildPanel(int index) {
 
 class PortraitItem {
   final String image;
+  final IconData icon_on;
+  final IconData icon_off;
   final String name;
   final Color color;
   bool bExpanded;
-  PortraitItem(this.image, this.name, this.color, this.bExpanded);
+  PortraitItem(this.image, this.icon_on, this.icon_off, this.name, this.color,
+      this.bExpanded);
 }
 
 List<PortraitItem> _list = [
-  PortraitItem(
-      'images/alice.jpg', 'Alice', Color.fromARGB(255, 152, 208, 236), false),
-  PortraitItem('images/arthur.jpg', 'Arthur', Colors.red, false),
-  PortraitItem(
-      'images/medusa.jpg', 'Medusa', Color.fromARGB(255, 127, 255, 7), false),
-  PortraitItem('images/sinbad.jpg', 'Sinbad', Colors.amber, false),
+  PortraitItem('images/alice.jpg', HeroIcons.alice_on, HeroIcons.alice_off,
+      'Alice', Color.fromARGB(255, 152, 208, 236), false),
+  PortraitItem('images/arthur.jpg', HeroIcons.arthur_on, HeroIcons.arthur_off,
+      'Arthur', Colors.red, false),
+  PortraitItem('images/medusa.jpg', HeroIcons.medusa_on, HeroIcons.medusa_off,
+      'Medusa', Color.fromARGB(255, 127, 255, 7), false),
+  PortraitItem('images/sinbad.jpg', HeroIcons.sinbad_on, HeroIcons.sinbad_off,
+      'Sinbad', Colors.amber, false),
 ];
