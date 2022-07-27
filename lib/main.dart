@@ -1,9 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:test_app/hero_details.dart';
 import 'icons.dart';
+import 'hero_details.dart';
 
 void main() {
   //debugPaintSizeEnabled = true;
@@ -21,6 +24,7 @@ class _FavouriteState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'UnMatched',
       home: Scaffold(
         appBar: AppBar(
@@ -41,24 +45,39 @@ class _FavouriteState extends State<MyApp> {
               //return Center(child: Text('Item $index'));
               //return Center(child: Image.asset('images/square.png'));
               return Card(
-                color: _list[index].color,
+                color: list[index].color,
                 child: Column(
                   children: <Widget>[
-                    Image.asset(
-                      _list[index].image,
-                      fit: BoxFit.fitWidth,
+                    Hero(
+                      tag: list[index].image,
+                      child: Image.asset(
+                        list[index].image,
+                        fit: BoxFit.fitWidth,
+                      ),
                     ),
                     ExpansionTile(
-                      title: Text(_list[index].name),
-                      trailing: Icon(_list[index].bExpanded
-                          ? _list[index].icon_on
-                          : _list[index].icon_off),
-                      children: const <Widget>[
-                        ListTile(title: Text('This is tile number 2')),
+                      title: Text(list[index].name),
+                      trailing: Icon(list[index].bExpanded
+                          ? list[index].icon_on
+                          : list[index].icon_off),
+                      children: <Widget>[
+                        const ListTile(title: Text('Data to be added')),
+                        ElevatedButton(
+                          child: const Text('Expand'),
+                          onPressed: () {
+                            nPassedIndex = index;
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const HeroDetails(),
+                              ),
+                            );
+                          },
+                        ),
                       ],
                       onExpansionChanged: (value) {
                         setState(() {
-                          _list[index].bExpanded = !_list[index].bExpanded;
+                          list[index].bExpanded = !list[index].bExpanded;
                         });
                       },
                     ),
@@ -88,11 +107,11 @@ Widget HeroGrid() {
       //return Center(child: Text('Item $index'));
       //return Center(child: Image.asset('images/square.png'));
       return Card(
-        color: _list[index].color,
+        color: list[index].color,
         child: Column(
           children: <Widget>[
             Image.asset(
-              _list[index].image,
+              list[index].image,
               fit: BoxFit.fitWidth,
             ),
             buildPanel(index),
@@ -133,7 +152,7 @@ Widget buildPanel(int index) {
           title:
               Text('Description text', style: TextStyle(color: Colors.black)),
         ),
-        isExpanded: _list[index].bExpanded,
+        isExpanded: list[index].bExpanded,
         canTapOnHeader: true,
       ),
     ],
@@ -141,7 +160,7 @@ Widget buildPanel(int index) {
     expansionCallback: (index2, bool isExpanded) {
       //setState(() {
       index2 = index;
-      _list[index2].bExpanded = !isExpanded;
+      list[index2].bExpanded = !isExpanded;
       //});
     },
   );
@@ -158,7 +177,9 @@ class PortraitItem {
       this.bExpanded);
 }
 
-List<PortraitItem> _list = [
+int nPassedIndex = 0;
+
+List<PortraitItem> list = [
   PortraitItem('images/alice.jpg', HeroIcons.alice_on, HeroIcons.alice_off,
       'Alice', Color.fromARGB(255, 152, 208, 236), false),
   PortraitItem('images/arthur.jpg', HeroIcons.arthur_on, HeroIcons.arthur_off,
