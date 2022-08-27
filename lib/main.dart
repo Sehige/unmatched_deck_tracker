@@ -35,7 +35,7 @@ class _FavouriteState extends State<MyApp> {
           alignment: Alignment.center,
           child: GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2, childAspectRatio: 0.5,
+              crossAxisCount: 2, childAspectRatio: 1.1,
               //crossAxisSpacing: 10.0,
               //mainAxisSpacing: 10.0,
             ),
@@ -55,7 +55,38 @@ class _FavouriteState extends State<MyApp> {
                         fit: BoxFit.fitWidth,
                       ),
                     ),
-                    ExpansionTile(
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            list[index].name,
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        Expanded(
+                          child: IconButton(
+                            alignment: Alignment.centerRight,
+                            icon: Icon(list[index].icon_on),
+                            onPressed: () {
+                              nPassedIndex = index;
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const HeroDetails(),
+                                ),
+                              );
+                              setState(
+                                () {
+                                  list[index].bExpanded =
+                                      !list[index].bExpanded;
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    /*ExpansionTile(
                       title: Text(list[index].name),
                       trailing: Icon(list[index].bExpanded
                           ? list[index].icon_on
@@ -80,7 +111,7 @@ class _FavouriteState extends State<MyApp> {
                           list[index].bExpanded = !list[index].bExpanded;
                         });
                       },
-                    ),
+                    ),*/
                   ],
                 ),
               );
