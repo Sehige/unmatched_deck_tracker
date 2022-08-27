@@ -1,9 +1,6 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:test_app/hero_details.dart';
 import 'icons.dart';
 import 'hero_details.dart';
@@ -66,7 +63,7 @@ class _FavouriteState extends State<MyApp> {
                         Expanded(
                           child: IconButton(
                             alignment: Alignment.centerRight,
-                            icon: Icon(list[index].icon_on),
+                            icon: Icon(list[index].icon),
                             onPressed: () {
                               nPassedIndex = index;
                               Navigator.push(
@@ -76,10 +73,7 @@ class _FavouriteState extends State<MyApp> {
                                 ),
                               );
                               setState(
-                                () {
-                                  list[index].bExpanded =
-                                      !list[index].bExpanded;
-                                },
+                                () {},
                               );
                             },
                           ),
@@ -145,20 +139,6 @@ Widget HeroGrid() {
               list[index].image,
               fit: BoxFit.fitWidth,
             ),
-            buildPanel(index),
-            /*TextButton(
-            onPressed: () {
-              nNrOfClicks++;
-              if (nNrOfClicks % 2 == 0) {
-                dAspectRatio = 0.75;
-              } else {
-                dAspectRatio = 1.8;
-              }
-            },
-            child: AutoSizeText(
-              _list[index].name,
-            ),
-          ),*/
           ],
         ),
       );
@@ -166,7 +146,7 @@ Widget HeroGrid() {
   );
 }
 
-@override
+/*@override
 Widget buildPanel(int index) {
   return ExpansionPanelList(
     children: [
@@ -195,28 +175,26 @@ Widget buildPanel(int index) {
       //});
     },
   );
-}
+}*/
 
 class PortraitItem {
-  final String image;
-  final IconData icon_on;
-  final IconData icon_off;
-  final String name;
   final Color color;
-  bool bExpanded;
-  PortraitItem(this.image, this.icon_on, this.icon_off, this.name, this.color,
-      this.bExpanded);
+  final IconData icon;
+  final String image;
+  final String name;
+  final String sidekick;
+  PortraitItem(this.color, this.icon, this.image, this.name, this.sidekick);
 }
 
 int nPassedIndex = 0;
 
 List<PortraitItem> list = [
-  PortraitItem('images/alice.jpg', HeroIcons.alice_on, HeroIcons.alice_off,
-      'Alice', Color.fromARGB(255, 152, 208, 236), false),
-  PortraitItem('images/arthur.jpg', HeroIcons.arthur_on, HeroIcons.arthur_off,
-      'Arthur', Colors.red, false),
-  PortraitItem('images/medusa.jpg', HeroIcons.medusa_on, HeroIcons.medusa_off,
-      'Medusa', Color.fromARGB(255, 127, 255, 7), false),
-  PortraitItem('images/sinbad.jpg', HeroIcons.sinbad_on, HeroIcons.sinbad_off,
-      'Sinbad', Colors.amber, false),
+  PortraitItem(Color.fromARGB(255, 152, 208, 236), HeroIcons.alice_on,
+      'images/alice.jpg', 'Alice', 'The Jabberwock'),
+  PortraitItem(
+      Colors.red, HeroIcons.arthur_on, 'images/arthur.jpg', 'Arthur', 'Merlin'),
+  PortraitItem(Color.fromARGB(255, 127, 255, 7), HeroIcons.medusa_on,
+      'images/medusa.jpg', 'Medusa', 'Harpies'),
+  PortraitItem(Colors.amber, HeroIcons.sinbad_on, 'images/sinbad.jpg', 'Sinbad',
+      'The Porter'),
 ];
