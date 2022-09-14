@@ -39,8 +39,6 @@ class _FavouriteState extends State<MyApp> {
             itemCount: 4,
             itemBuilder: (BuildContext context, int index) {
               double dAspectRatio = 1.8; //zoom out 1.8, zoom in 0.6
-              //return Center(child: Text('Item $index'));
-              //return Center(child: Image.asset('images/square.png'));
               return Card(
                 color: list[index].color,
                 child: Column(
@@ -128,7 +126,6 @@ Widget HeroGrid() {
     itemCount: 4,
     itemBuilder: (BuildContext context, int index) {
       double dAspectRatio = 1.8; //zoom out 1.8, zoom in 0.6
-      int nNrOfClicks = 0;
       //return Center(child: Text('Item $index'));
       //return Center(child: Image.asset('images/square.png'));
       return Card(
@@ -189,11 +186,11 @@ class PortraitItem {
 int nPassedIndex = 0;
 
 List<PortraitItem> list = [
-  PortraitItem(Color.fromARGB(255, 152, 208, 236), HeroIcons.alice_on,
+  PortraitItem(const Color.fromARGB(255, 152, 208, 236), HeroIcons.alice_on,
       'images/alice.jpg', 'Alice', 'The Jabberwock'),
   PortraitItem(
       Colors.red, HeroIcons.arthur_on, 'images/arthur.jpg', 'Arthur', 'Merlin'),
-  PortraitItem(Color.fromARGB(255, 127, 255, 7), HeroIcons.medusa_on,
+  PortraitItem(const Color.fromARGB(255, 127, 255, 7), HeroIcons.medusa_on,
       'images/medusa.jpg', 'Medusa', 'Harpies'),
   PortraitItem(Colors.amber, HeroIcons.sinbad_on, 'images/sinbad.jpg', 'Sinbad',
       'The Porter'),
